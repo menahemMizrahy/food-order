@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, Fragment } from "react";
+import { useState, useContext, useEffect } from "react";
 import Cart from "./components/Cart/Cart";
 
 import Header from "./components/Layout/Header";
@@ -19,13 +19,13 @@ const App = () => {
   }, [cartCtx.items]);
 
   return (
-    <Fragment>
+    <>
       {showCart && <Cart onHideCart={hideCartHandler} />}
       <Header onShowCart={showCartHandler} />
       <main>
         <Meals />
       </main>
-    </Fragment>
+    </>
   );
 };
 

@@ -13,9 +13,7 @@ const Cart = (props) => {
 
   const cartCtx = useContext(CartContext);
 
-  const cartItems = cartCtx.items.map((item) => (
-    <CartItem key={item.id} item={item} />
-  ));
+  const cartItems = cartCtx.items.map((item) => <CartItem key={item.id} item={item} />);
 
   const checkingoutHandler = () => {
     setIsCheckout(true);
@@ -31,16 +29,13 @@ const Cart = (props) => {
 
   const sendOrderHandler = async (userInfo) => {
     setSending(true);
-    await fetch(
-      "https://react-http-efb49-default-rtdb.firebaseio.com/orders.json",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          userInfo,
-          items: cartCtx.items,
-        }),
-      }
-    ).catch(() => {});
+    await fetch("https://react-http-efb49-default-rtdb.firebaseio.com/orders.json", {
+      method: "POST",
+      body: JSON.stringify({
+        userInfo,
+        items: cartCtx.items,
+      }),
+    }).catch(() => {});
     setSending(false);
     setSent(true);
   };
@@ -60,19 +55,16 @@ const Cart = (props) => {
           </button>
         </div>
       ) : (
-        !sending &&
-        !sent && (
-          <Checkout onCancel={props.onHideCart} onConfirm={sendOrderHandler} />
-        )
+        !sending && !sent && <Checkout onCancel={props.onHideCart} onConfirm={sendOrderHandler} />
       )}
       {sending && <p>Sending your order, Please wait...</p>}
       {sent && (
-        <React.Fragment>
+        <>
           <p>Your order hase complited</p>
           <div className={classes.actions}>
             <button onClick={closeCartHandler}>Close</button>
           </div>
-        </React.Fragment>
+        </>
       )}
     </Modal>
   );
